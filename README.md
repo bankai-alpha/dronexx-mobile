@@ -1,17 +1,26 @@
-# dronex
+# DroneX Mobile Controller 🚁
 
-A new Flutter project.
+A sleek, cross-platform Flutter application designed to act as the primary remote control and telemetry dashboard for ESP32-based custom drones.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+* **Dual Network Strategy:** Seamlessly switch between Wi-Fi (UDP for low-latency flight control) and Bluetooth Low Energy (BLE).
+* **Two-Way UDP Handshake:** Ensures a verified connection before unlocking flight controls.
+* **Smart Watchdog Timer:** Automatically disconnects the UI if telemetry from the drone is lost for more than 3 seconds.
+* **Ergonomic UI:** Landscape-locked layout featuring dual virtual joysticks (`flutter_joystick`) and a real-time dark-mode telemetry dashboard.
+* **Clean Architecture:** Feature-first folder structure separating UI presentation from the messy network infrastructure.
 
-A few resources to get you started if this is your first Flutter project:
+## Architecture & Folder Structure
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+This project follows strict Clean Architecture principles to ensure scalability:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# dronexx-mobile
+```text
+lib/
+├── core/                   # Shared themes, constants, and utilities
+├── features/
+│   └── flight_control/     # Core drone interaction feature
+│       ├── application/    # DroneManager (State management & connection routing)
+│       ├── domain/         # DroneConnection (Abstract interface/contract)
+│       ├── infrastructure/ # WifiConnection (UDP) & BluetoothConnection (BLE)
+│       └── presentation/   # UI components (Joysticks, Telemetry HUD, Dashboards)
+└── main.dart
